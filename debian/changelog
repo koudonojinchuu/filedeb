@@ -1,0 +1,11 @@
+filedeb (1.1) UNRELEASED; urgency=low
+
+  * Added debfindmax, to find pareto maximal packages to install in a given directory (others are then automatically installed by dependences).
+
+ -- Samuel Amo <samuel@takezou>  Tue, 08 Apr 2014 11:40:54 +0200
+
+filedeb (1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Samuel Amo <samuel@takezou>  Sat, 29 Mar 2014 10:37:41 +0900

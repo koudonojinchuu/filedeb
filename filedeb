@@ -1,0 +1,8 @@
+#! /bin/bash
+if [[ "$#" -ne 2  ]]
+then
+echo "Error. Syntax is:  (sudo) filedeb path pkgname"
+fi
+addfiledeb $1
+aptitude install $2
+delfiledeb $1

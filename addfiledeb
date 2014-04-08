@@ -1,0 +1,14 @@
+#!/bin/bash
+
+therep="$(realpath $1)"
+cd $therep
+dpkg-scanpackages . > ./Packages
+chown samuel:samuel ./Packages
+if ! [[ -e /etc/apt/sources.list.d/myrepo.list ]]
+then
+   touch /etc/apt/sources.list.d/myrepo.list
+fi
+sed -i "\&deb file://$therep /&d" /etc/apt/sources.list.d/myrepo.list
+echo "deb file://$therep /" >> /etc/apt/sources.list.d/myrepo.list
+
+apt-get update -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/myrepo.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"

@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+$arg1=$ARGV[0];
+@list_packages=`cat \$(realpath $arg1)/Packages | grep "Package:" | cut -d' ' -f2| sort -u`;
+
+for $i (@list_packages)
+{
+   chomp $i;
+   $files{$i}=`ls -d \$(realpath $arg1)/* | egrep "$i\_.*\.deb"`;
+   #$files{$i}=`find \$(realpath $arg1) -name *.deb | egrep "$i\_.*\.deb"`;
+   chomp $files{$i};
+   $versions{$i}=$1 if ($files{$i}=~/_([^_]+)_[^_]+$/);
+   $depends{$i}=[`dpkg -I $files{$i} | egrep "^ Depends" | sed 's/^ Depends: //;s/, /\\n/g' | awk '{print \$1}'`] if ($versions{$i});
+   $present{$i}=0;
+   if ($versions{$i}) {$present{$i}=1;}
+}
+
+for my $i (@list_packages)
+{
+   for my $j (@{$depends{$i}}) {chomp $j;}
+}
+
+for $j (@list_packages)
+{
+   if ($present{$j})
+   {
+      for $k (@{$depends{$j}})
+      {
+         if ($present{$k} == 1)
+         {
+            #print "$j is required by $k\n";
+            $present{$j}=0;
+         }
+      }
+   }
+}
+
+for $i (@list_packages)
+{
+   if ($present{$i} == 1)
+   {
+      print "$i=$versions{$i} : ";
+      for $j (@{$depends{$i}})
+      {
+         chomp $j;
+         if (exists $files{$j})
+         {
+            print $j." ";
+         }
+      }
+      print "\n";
+   }
+}

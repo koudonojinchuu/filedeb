@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# option -a will cause blanking of myrepo.list file
+#  --> but all the Packages files will be left, none erased.
+
+if ! [[ -e /etc/apt/sources.list.d/myrepo.list ]]
+then
+   touch /etc/apt/sources.list.d/myrepo.list
+fi
+
+if [[ "$1" == "-a" ]]
+then
+   echo "" > /etc/apt/sources.list.d/myrepo.list
+else
+   rm -f $1/Packages
+   sed -i "\&deb file://$(realpath $1) /&d" /etc/apt/sources.list.d/myrepo.list
+fi
+
+apt-get update -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/myrepo.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"

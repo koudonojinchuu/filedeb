@@ -1,0 +1,15 @@
+Source: filedeb
+Section: unknown
+Priority: extra
+Maintainer: Samuel Amo <samuel@takezou>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: git://git.debian.org/collab-maint/filedeb.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/filedeb.git;a=summary
+
+Package: filedeb
+Architecture: all
+Depends: ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
