@@ -1,0 +1,17 @@
+From: Koudo no Jinchuu <samuel.amo@gmail.com>
+Date: Wed, 9 Apr 2014 18:45:01 +0200
+Subject: un test
+
+---
+ test |    2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 test
+
+diff --git a/test b/test
+new file mode 100644
+index 0000000..c0153e6
+--- /dev/null
++++ b/test
+@@ -0,0 +1,2 @@
++
++fezjfoij
